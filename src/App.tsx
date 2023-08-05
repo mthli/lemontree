@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -9,9 +11,18 @@ import Typography from '@mui/material/Typography'
 
 import { GoogleLogin } from '@react-oauth/google'
 
+import { Trans, useTranslation } from 'react-i18next'
+import './i18n'
+
 const width = '336px'
 
 function App() {
+  const { t } = useTranslation()
+
+  // TODO
+  const [user, setUser] = useState()
+  const anonymous = !user
+
   return (
     <Container
       maxWidth='xs'
@@ -20,18 +31,22 @@ function App() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        pt: 6,
-        pb: 6,
+        pt: 4,
+        pb: 4,
       }}
     >
-      <Box sx={{ width, }}>
+      <Box sx={{ width }}>
         <Typography variant='h6' gutterBottom>Lemon Tree</Typography>
+        <Typography variant='subtitle2' gutterBottom>
+          <Trans i18nKey='desc_1'>
+            <Link href='https://github.com/mthli/lemonsqueepy'>lemonsqueepy</Link>
+          </Trans>
+        </Typography>
         <Typography variant='subtitle2'>
-          A <Link href='https://github.com/mthli/lemonsqueepy'>lemonsqueepy</Link> example 🍋<br />
-          Please Sign in with Google first 👀
+          {t('desc_2').toString()}
         </Typography>
       </Box>
-      <Box sx={{ width, mt: 4 }}>
+      <Box sx={{ width, mt: 3 }}>
         <GoogleLogin
           width={width}
           onSuccess={({ credential }) => {
@@ -53,7 +68,7 @@ function App() {
             sx={{ fontSize: '14px' }}
             gutterBottom
           >
-            Product #1
+            {t('product_no_1').toString()}
           </Typography>
           <Typography variant='h4' component='div'>
             0.99
@@ -63,7 +78,7 @@ function App() {
               color='text.secondary'
               sx={{ fontSize: '14px', ml: 1 }}
             >
-              USD
+              {t('usd').toString()}
             </Typography>
           </Typography>
           <Typography
@@ -71,18 +86,23 @@ function App() {
             sx={{ mt: 3 }}
             gutterBottom
           >
-            • 1 month validity 🌖
+            {t('14_days_validity').toString()}
           </Typography>
-          <Typography variant='body1' gutterBottom>• 100 activation tests 🚀</Typography>
-          <Typography variant='body1'>• Invoices and receipts 🧾</Typography>
+          <Typography variant='body1' gutterBottom>
+            {t('32_activation_tests').toString()}
+          </Typography>
+          <Typography variant='body1'>
+            {t('invoices_and_receipts').toString()}
+          </Typography>
           <Button
             variant='contained'
             sx={{ width: '100%', mt: 4 }}
+            disabled={anonymous}
             onClick={() => {
               // TODO
             }}
           >
-            Buy License
+            {t('buy_license').toString()}
           </Button>
         </CardContent>
       </Card>
@@ -94,10 +114,11 @@ function App() {
       }}>
         <TextField
           variant='outlined'
-          label='License'
+          label={t('license').toString()}
           required
           size='small'
           sx={{ width: '100%' }}
+          disabled={anonymous}
           onChange={() => {
             // TODO
           }}
@@ -105,11 +126,12 @@ function App() {
         <Button
           variant='outlined'
           sx={{ ml: 1 }}
+          disabled={anonymous}
           onClick={() => {
             // TODO
           }}
         >
-          Test
+          {t('activate').toString()}
         </Button>
       </Box>
     </Container>
