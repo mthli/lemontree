@@ -20,8 +20,8 @@ function App() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        pt: 8,
-        pb: 8,
+        pt: 6,
+        pb: 6,
       }}
     >
       <Box sx={{ width, }}>
@@ -35,6 +35,9 @@ function App() {
         <GoogleLogin
           width={width}
           onSuccess={({ credential }) => {
+            // TODO
+          }}
+          onError={() => {
             // TODO
           }}
         />
@@ -92,6 +95,7 @@ function App() {
         <TextField
           variant='outlined'
           label='License'
+          required
           size='small'
           sx={{ width: '100%' }}
           onChange={() => {
