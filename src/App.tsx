@@ -1,12 +1,14 @@
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Container from '@mui/material/Container'
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
 import { GoogleLogin } from '@react-oauth/google'
+
+const width = '336px'
 
 function App() {
   return (
@@ -20,9 +22,9 @@ function App() {
         pt: 8,
       }}
     >
-      <Box sx={{ width: '336px' }}>
+      <Box sx={{ width: width }}>
         <GoogleLogin
-          width='336px'
+          width={width}
           onSuccess={({ credential }) => {
             // TODO
           }}
@@ -32,7 +34,7 @@ function App() {
         variant='outlined'
         sx={{
           mt: 4,
-          width: '336px',
+          width: width,
         }}
       >
         <CardContent>
@@ -75,6 +77,31 @@ function App() {
           </Button>
         </CardContent>
       </Card>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        width: width,
+        mt: 4,
+      }}>
+        <TextField
+          variant='outlined'
+          label='License'
+          size='small'
+          sx={{ width: '100%' }}
+          onChange={() => {
+            // TODO
+          }}
+        />
+        <Button
+          variant='outlined'
+          sx={{ ml: 1 }}
+          onClick={() => {
+            // TODO
+          }}
+        >
+          Test
+        </Button>
+      </Box>
     </Container>
   );
 }
