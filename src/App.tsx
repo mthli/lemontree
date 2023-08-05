@@ -3,6 +3,7 @@ import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Container from '@mui/material/Container'
+import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
@@ -20,9 +21,17 @@ function App() {
         justifyContent: 'center',
         alignItems: 'center',
         pt: 8,
+        pb: 8,
       }}
     >
-      <Box sx={{ width: width }}>
+      <Box sx={{ width, }}>
+        <Typography variant='h6' gutterBottom>Lemon Tree</Typography>
+        <Typography variant='subtitle2'>
+          A <Link href='https://github.com/mthli/lemonsqueepy'>lemonsqueepy</Link> example 🍋<br />
+          Please Sign in with Google first 👀
+        </Typography>
+      </Box>
+      <Box sx={{ width, mt: 4 }}>
         <GoogleLogin
           width={width}
           onSuccess={({ credential }) => {
@@ -32,10 +41,7 @@ function App() {
       </Box>
       <Card
         variant='outlined'
-        sx={{
-          mt: 4,
-          width: width,
-        }}
+        sx={{ width, mt: 4 }}
       >
         <CardContent>
           <Typography
@@ -80,7 +86,7 @@ function App() {
       <Box sx={{
         display: 'flex',
         flexDirection: 'row',
-        width: width,
+        width,
         mt: 4,
       }}>
         <TextField
