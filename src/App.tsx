@@ -1,11 +1,14 @@
-import React from 'react';
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 
 function App() {
   return (
-    <div>
-      {/* TODO */}
-    </div>
+    <Container maxWidth='xs'>
+      <Box>
+        {/* TODO */}
+      </Box>
+    </Container>
   );
 }
 
-export default App;
+export default App
