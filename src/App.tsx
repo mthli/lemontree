@@ -134,7 +134,23 @@ function App() {
           {t('activate').toString()}
         </Button>
       </Box>
-    </Container>
+      <Typography
+        variant='body1'
+        component='div'
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          mb: 1,
+          width: '100%',
+          fontSize: '14px',
+        }}
+      >
+        {t('thanks').toString()}
+      </Typography>
+    </Container >
   );
 }
 
