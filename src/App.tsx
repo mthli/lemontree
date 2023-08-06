@@ -47,25 +47,21 @@ function App() {
         </Typography>
       </Box>
       <Box sx={{ width, mt: 3 }}>
-        {
-          /*
-           * https://github.com/vercel/next.js/discussions/51135
-           * https://github.com/MomenSherif/react-oauth/issues/289
-           *
-           * FIXME (Matthew Lee)
-           * We want to use the 'popup' mode instead of 'redirect', but we have to face
-           * 'Cross-Origin-Opener-Policy policy would block the window.postMessage call' for now.
-           */
-        }
         <GoogleLogin
           ux_mode='popup'
           width={width}
           onSuccess={({ credential }) => {
-            console.log(`GoogleLogin onSuccess, credential=${credential}`)
+            // https://github.com/vercel/next.js/discussions/51135
+            // https://github.com/MomenSherif/react-oauth/issues/289
+            //
+            // FIXME (Matthew Lee)
+            // We have to refresh again after success, because of
+            // 'Cross-Origin-Opener-Policy policy would block the window.postMessage call' for now.
+            window.location.reload()
+
             // TODO
           }}
           onError={() => {
-            console.log(`GoogleLogin onError`)
             // TODO
           }}
         />
