@@ -27,9 +27,17 @@ function App() {
   // If the credential has expired, the `error.code` is 401.
   //
   // But in this example we don't need to check the credential has expired,
-  // because we only use the "email" field in the server side.
+  // because we only use the "email" field in out server side.
   const { data: user, error } = useGoogleOAuth(credential, '', false)
   const anonymous = !user || error
+
+  // Must pass custom `user_id` for making it easy to identify the user in our server side.
+  // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
+  const { id: userId = '', name = '', email = '' } = user || {}
+  const checkoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/994d9817-04b2-4770-9910-c094db24a341?discount=0'
+    + `&checkout[custom][user_id]=${userId}` // required.
+    + `&checkout[name]=${name}`   // optional; pre-filling.
+    + `&checkout[email]=${email}` // optional; pre-filling.
 
   useEffect(() => {
     // @ts-ignore
@@ -120,9 +128,7 @@ function App() {
             variant='contained'
             sx={{ width: '100%', mt: 4 }}
             disabled={anonymous}
-            onClick={() => {
-              // TODO
-            }}
+            onClick={() => window.location.href = checkoutUrl}
           >
             {t('buy_license').toString()}
           </Button>
