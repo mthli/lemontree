@@ -60,7 +60,9 @@ function App() {
         <Typography variant='h6' gutterBottom>Lemon Tree</Typography>
         <Typography variant='subtitle2' gutterBottom>
           <Trans i18nKey='desc_1'>
-            <Link href='https://github.com/mthli/lemonsqueepy'>lemonsqueepy</Link>
+            <Link href='https://github.com/mthli/lemonsqueepy' target='_blank'>
+              lemonsqueepy
+            </Link>
           </Trans>
         </Typography>
         <Typography variant='subtitle2'>
@@ -122,7 +124,11 @@ function App() {
             {t('32_activation_tests').toString()}
           </Typography>
           <Typography variant='body1'>
-            {t('invoices_and_receipts').toString()}
+            <Trans i18nKey='invoices_and_receipts'>
+              <Link href='https://app.lemonsqueezy.com/my-orders' target='_blank'>
+                invoices_and_receipts
+              </Link>
+            </Trans>
           </Typography>
           <Button
             variant='contained'
