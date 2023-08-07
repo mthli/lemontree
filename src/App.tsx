@@ -33,10 +33,9 @@ function App() {
 
   // Must pass custom `user_id` for making it easy to identify the user in our server side.
   // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
-  const { id: userId = '', name = '', email = '' } = user || {}
+  const { id: userId = '', email = '' } = user || {}
   const checkoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/994d9817-04b2-4770-9910-c094db24a341?discount=0'
     + `&checkout[custom][user_id]=${userId}` // required.
-    + `&checkout[name]=${name}`   // optional; pre-filling.
     + `&checkout[email]=${email}` // optional; pre-filling.
 
   useEffect(() => {

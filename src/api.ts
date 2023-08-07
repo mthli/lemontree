@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 
-// FIXME (Matthew Lee) defined as env would be better.
 const BASE_URL = 'https://lemon.mthli.com'
 
 export class RequestError extends Error {
