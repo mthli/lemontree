@@ -67,12 +67,12 @@ const App = () => {
       <Box sx={{ width: WIDTH }}>
         <Typography variant='h6' gutterBottom>Lemon Tree</Typography>
         <Typography variant='subtitle2' gutterBottom>
-          <Trans i18nKey='subtitle1'>
+          <Trans i18nKey='subtitle'>
             <Link href='https://github.com/mthli/lemonsqueepy' target='_blank'>link</Link>
           </Trans>
         </Typography>
         <Typography variant='subtitle2'>
-          {t('subtitle2').toString()}
+          {t(anonymous ? 'not_signed_in' : 'has_signed_in').toString()}
         </Typography>
       </Box>
       <Box sx={{ width: WIDTH, mt: 3 }}>

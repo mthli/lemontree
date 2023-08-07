@@ -6,8 +6,9 @@ import { initReactI18next } from 'react-i18next'
 const resources = {
   en: {
     translation: {
-      'subtitle1': 'A <0>lemonsqueepy</0> example 🍋',
-      'subtitle2': 'Please Sign in with Google first 👀',
+      'subtitle': 'A <0>lemonsqueepy</0> example 🍋',
+      'not_signed_in': 'Please Sign in with Google first 👀',
+      'has_signed_in': 'Sign in successful ✅',
       'thanks': 'Thanks for your support 🖤',
       'variant': 'Variant',
       'usd': 'USD',
@@ -28,8 +29,9 @@ const resources = {
   },
   zh: {
     translation: {
-      'subtitle1': '一个 <0>lemonsqueepy</0> 示例 🍋',
-      'subtitle2': '请先使用 Google 帐号登录 👀',
+      'subtitle': '一个 <0>lemonsqueepy</0> 示例 🍋',
+      'not_signed_in': '请先使用 Google 帐号登录 👀',
+      'has_signed_in': '已登录 ✅',
       'thanks': '感谢您的资瓷 🖤',
       'variant': '产品变体',
       'usd': '美元',
