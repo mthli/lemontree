@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
 import Box from '@mui/material/Box'
@@ -29,6 +30,11 @@ function App() {
   // because we only use the "email" field in the server side.
   const { data: user, error } = useGoogleOAuth(credential, '', false)
   const anonymous = !user || error
+
+  useEffect(() => {
+    // @ts-ignore
+    window.createLemonSqueezy()
+  }, [])
 
   return (
     <Container
