@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
 import Box from '@mui/material/Box'
@@ -11,6 +10,7 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
 import { GoogleLogin } from '@react-oauth/google'
+import { useGoogleOAuth } from './api'
 
 import { Trans, useTranslation } from 'react-i18next'
 import './i18n'
@@ -21,9 +21,12 @@ function App() {
   const { t } = useTranslation()
   const [credential, setCredential] = useSessionStorage('google-login-credential', '')
 
-  // TODO
-  const [user, setUser] = useState()
-  const anonymous = !user
+  // If the credential has expired, the `error.code` is 401.
+  //
+  // But in this example we don't need to check the credential has expired,
+  // because we only use the "email" field in the server side.
+  const { data: user, error } = useGoogleOAuth(credential, '', false)
+  const anonymous = !user || error
 
   return (
     <Container
