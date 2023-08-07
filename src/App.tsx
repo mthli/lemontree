@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
 import Box from '@mui/material/Box'
@@ -20,6 +20,7 @@ const width = '336px'
 
 function App() {
   const { t } = useTranslation()
+  const [license, setLicense] = useState('')
 
   // Persist the state with session storage so that it remains after a page refresh.
   const [credential, setCredential] = useSessionStorage('google-login-credential', '')
@@ -82,7 +83,7 @@ function App() {
             window.location.reload()
           }}
           onError={() => {
-            // TODO
+            // DO NOTHING.
           }}
         />
       </Box>
@@ -146,14 +147,12 @@ function App() {
           size='small'
           sx={{ width: '100%' }}
           disabled={anonymous}
-          onChange={() => {
-            // TODO
-          }}
+          onChange={({ target: { value = '' } = {} }) => setLicense(value.trim())}
         />
         <Button
           variant='outlined'
           sx={{ ml: 1 }}
-          disabled={anonymous}
+          disabled={anonymous || !license}
           onClick={() => {
             // TODO
           }}
