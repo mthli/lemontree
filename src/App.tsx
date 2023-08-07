@@ -3,12 +3,11 @@ import { useSessionStorage } from 'usehooks-ts'
 
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 import Container from '@mui/material/Container'
 import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+import VariantCard from './VariantCard'
 
 import { GoogleLogin } from '@react-oauth/google'
 import { useGoogleOAuth } from './api'
@@ -16,9 +15,13 @@ import { useGoogleOAuth } from './api'
 import { Trans, useTranslation } from 'react-i18next'
 import './i18n'
 
-const width = '336px'
+const WIDTH = '336px'
 
-function App() {
+// Copied from Lemon Squeezy Product Details.
+const ORDER_VARIANT_ID = '109551'
+const SUBSCRIPTION_VARIANT_ID = '109552'
+
+const App = () => {
   const { t } = useTranslation()
   const [license, setLicense] = useState('')
 
@@ -35,7 +38,12 @@ function App() {
   // Must pass custom `user_id` for making it easy to identify the user in our server side.
   // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
   const { id: userId = '', email = '' } = user || {}
-  const checkoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/994d9817-04b2-4770-9910-c094db24a341?discount=0'
+  const orderCheckoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/ac87c10e-093c-434a-9bdd-7287b361e98c'
+    + '?media=0&discount=0' // set checkout page style.
+    + `&checkout[custom][user_id]=${userId}` // required.
+    + `&checkout[email]=${email}` // optional; pre-filling.
+  const subscriptionCheckoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/f7ef033f-5782-4885-8487-4c27e0f3c9f4'
+    + '?media=0&discount=0' // set checkout page style.
     + `&checkout[custom][user_id]=${userId}` // required.
     + `&checkout[email]=${email}` // optional; pre-filling.
 
@@ -56,23 +64,21 @@ function App() {
         pb: 4,
       }}
     >
-      <Box sx={{ width }}>
+      <Box sx={{ width: WIDTH }}>
         <Typography variant='h6' gutterBottom>Lemon Tree</Typography>
         <Typography variant='subtitle2' gutterBottom>
-          <Trans i18nKey='desc_1'>
-            <Link href='https://github.com/mthli/lemonsqueepy' target='_blank'>
-              lemonsqueepy
-            </Link>
+          <Trans i18nKey='subtitle1'>
+            <Link href='https://github.com/mthli/lemonsqueepy' target='_blank'>link</Link>
           </Trans>
         </Typography>
         <Typography variant='subtitle2'>
-          {t('desc_2').toString()}
+          {t('subtitle2').toString()}
         </Typography>
       </Box>
-      <Box sx={{ width, mt: 3 }}>
+      <Box sx={{ width: WIDTH, mt: 3 }}>
         <GoogleLogin
           ux_mode='popup'
-          width={width}
+          width={WIDTH}
           onSuccess={({ credential: c = '' }) => {
             setCredential(c)
 
@@ -89,61 +95,21 @@ function App() {
           }}
         />
       </Box>
-      <Card
-        variant='outlined'
-        sx={{ width, mt: 4 }}
-      >
-        <CardContent>
-          <Typography
-            variant='body1'
-            color='text.secondary'
-            sx={{ fontSize: '14px' }}
-            gutterBottom
-          >
-            {t('product_no_1').toString()}
-          </Typography>
-          <Typography variant='h4' component='div'>
-            0.99
-            <Typography
-              variant='body1'
-              component='span'
-              color='text.secondary'
-              sx={{ fontSize: '14px', ml: 1 }}
-            >
-              {t('usd').toString()}
-            </Typography>
-          </Typography>
-          <Typography
-            variant='body1'
-            sx={{ mt: 3 }}
-            gutterBottom
-          >
-            {t('14_days_validity').toString()}
-          </Typography>
-          <Typography variant='body1' gutterBottom>
-            {t('32_activation_tests').toString()}
-          </Typography>
-          <Typography variant='body1'>
-            <Trans i18nKey='invoices_and_receipts'>
-              <Link href='https://app.lemonsqueezy.com/my-orders' target='_blank'>
-                invoices_and_receipts
-              </Link>
-            </Trans>
-          </Typography>
-          <Button
-            variant='contained'
-            sx={{ width: '100%', mt: 4 }}
-            disabled={anonymous}
-            onClick={() => window.location.href = checkoutUrl}
-          >
-            {t('buy_license').toString()}
-          </Button>
-        </CardContent>
-      </Card>
+      <VariantCard
+        name={`${t('variant').toString()} #${ORDER_VARIANT_ID}`}
+        price='0.99'
+        desc1={t('30_days_validity').toString()}
+        desc2={t('32_activation_tests').toString()}
+        desc3Key='invoices_and_receipts'
+        checkoutText={t('buy_license').toString()}
+        checkoutUrl={orderCheckoutUrl}
+        anonymous={anonymous}
+        style={{ width: WIDTH, marginTop: '32px' }}
+      />
       <Box sx={{
         display: 'flex',
         flexDirection: 'row',
-        width,
+        width: WIDTH,
         mt: 4,
       }}>
         <TextField
