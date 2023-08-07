@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSessionStorage } from 'usehooks-ts'
 
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -18,6 +19,7 @@ const width = '336px'
 
 function App() {
   const { t } = useTranslation()
+  const [credential, setCredential] = useSessionStorage('google-login-credential', '')
 
   // TODO
   const [user, setUser] = useState()
@@ -50,7 +52,10 @@ function App() {
         <GoogleLogin
           ux_mode='popup'
           width={width}
-          onSuccess={({ credential }) => {
+          onSuccess={({ credential: c = '' }) => {
+            // Persist the state with session storage so that it remains after a page refresh.
+            setCredential(c)
+
             // https://github.com/vercel/next.js/discussions/51135
             // https://github.com/MomenSherif/react-oauth/issues/289
             //
@@ -58,8 +63,6 @@ function App() {
             // We have to refresh again after success, because of
             // 'Cross-Origin-Opener-Policy policy would block the window.postMessage call' for now.
             window.location.reload()
-
-            // TODO
           }}
           onError={() => {
             // TODO
