@@ -19,6 +19,8 @@ const width = '336px'
 
 function App() {
   const { t } = useTranslation()
+
+  // Persist the state with session storage so that it remains after a page refresh.
   const [credential, setCredential] = useSessionStorage('google-login-credential', '')
 
   // If the credential has expired, the `error.code` is 401.
@@ -56,7 +58,6 @@ function App() {
           ux_mode='popup'
           width={width}
           onSuccess={({ credential: c = '' }) => {
-            // Persist the state with session storage so that it remains after a page refresh.
             setCredential(c)
 
             // https://github.com/vercel/next.js/discussions/51135
