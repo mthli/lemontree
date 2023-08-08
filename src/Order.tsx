@@ -33,7 +33,7 @@ const Order = ({
     + `&checkout[email]=${email}` // optional; pre-filling.
 
   return (
-    <Box sx={{ width, marginTop, pl: 1, pr: 1 }}>
+    <Box sx={{ width, marginTop, pl: 2, pr: 2 }}>
       <VariantCard
         name={`${t('variant').toString()} #${ORDER_VARIANT_ID}`}
         price='0.99'
@@ -45,8 +45,7 @@ const Order = ({
         anonymous={!userId}
       />
       <OutlinedInput
-        placeholder={t('license').toString()}
-        required
+        placeholder={`${t('license').toString()} *`}
         size='small'
         sx={{ width, height: '36.5px', mt: 2 }}
         disabled={!userId}
