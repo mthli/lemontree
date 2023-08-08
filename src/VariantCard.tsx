@@ -16,8 +16,6 @@ const VariantCard = ({
   checkoutText,
   checkoutUrl,
   anonymous,
-  width,
-  marginTop,
 }: {
   name: string,
   price: string,
@@ -27,12 +25,10 @@ const VariantCard = ({
   checkoutText: string,
   checkoutUrl: string,
   anonymous: boolean,
-  width?: string,
-  marginTop?: string,
 }) => {
   const { t } = useTranslation()
   return (
-    <Card variant='outlined' style={{ width, marginTop }}>
+    <Card variant='outlined'>
       <CardContent>
         <Typography
           variant='body1'

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
+import OutlinedInput from '@mui/material/OutlinedInput'
 import VariantCard from './VariantCard'
 
 import { useTranslation } from 'react-i18next'
@@ -12,12 +12,12 @@ import './i18n'
 const ORDER_VARIANT_ID = '109551'
 
 const Order = ({
-  userId,
+  userId = '',
   email = '',
   width,
   marginTop,
 }: {
-  userId: string,
+  userId?: string,
   email?: string,
   width?: string,
   marginTop?: string,
@@ -33,7 +33,7 @@ const Order = ({
     + `&checkout[email]=${email}` // optional; pre-filling.
 
   return (
-    <>
+    <Box sx={{ width, marginTop, pl: 1, pr: 1 }}>
       <VariantCard
         name={`${t('variant').toString()} #${ORDER_VARIANT_ID}`}
         price='0.99'
@@ -43,15 +43,12 @@ const Order = ({
         checkoutText={t('buy_license').toString()}
         checkoutUrl={checkoutUrl}
         anonymous={!userId}
-        width={width}
-        marginTop={marginTop}
       />
-      <TextField
-        variant='outlined'
-        label={t('license').toString()}
+      <OutlinedInput
+        placeholder={t('license').toString()}
         required
         size='small'
-        sx={{ width, mt: 2 }}
+        sx={{ width, height: '36.5px', mt: 2 }}
         disabled={!userId}
         onChange={({ target: { value = '' } = {} }) => setLicense(value.trim())}
       />
@@ -61,7 +58,6 @@ const Order = ({
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
-          width,
           mt: 2,
         }}
       >
@@ -86,7 +82,7 @@ const Order = ({
           {t('check').toString()}
         </Button>
       </Box>
-    </>
+    </Box>
   )
 }
 

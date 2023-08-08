@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
 import Box from '@mui/material/Box'
@@ -13,6 +12,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import './i18n'
 
 import Order from './Order'
+import Subscription from './Subscription'
 
 const WIDTH = '336px'
 
@@ -26,24 +26,19 @@ const App = () => {
   //
   // But in this example we don't need to check the credential has expired,
   // because we only use the "email" field in out server side.
-  const { data: user, error } = useGoogleOAuth(credential, '', false)
-  const { id: userId = '', email = '' } = user || {}
-
-  useEffect(() => {
-    // @ts-ignore
-    window.createLemonSqueezy()
-  }, [])
+  const { data: user = {}, error } = useGoogleOAuth(credential, '', false)
+  const { id: userId = '', token: userToken = '', email = '' } = user
 
   return (
     <Container
-      maxWidth='xs'
+      maxWidth='md'
       sx={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         pt: 4,
-        pb: 4,
+        pb: 8,
       }}
     >
       <Box sx={{ width: WIDTH }}>
@@ -77,12 +72,28 @@ const App = () => {
           }}
         />
       </Box>
-      <Order
-        userId={userId}
-        email={email}
-        width={WIDTH}
-        marginTop='32px'
-      />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+        }}
+      >
+        <Order
+          userId={userId}
+          email={email}
+          width={WIDTH}
+          marginTop='32px'
+        />
+        <Subscription
+          userId={userId}
+          userToken={userToken}
+          email={email}
+          width={WIDTH}
+          marginTop='32px'
+        />
+      </Box>
       <Typography
         variant='body1'
         component='div'
