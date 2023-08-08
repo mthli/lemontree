@@ -1,5 +1,3 @@
-import { CSSProperties } from 'react'
-
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -18,7 +16,8 @@ const VariantCard = ({
   checkoutText,
   checkoutUrl,
   anonymous,
-  style = {},
+  width,
+  marginTop,
 }: {
   name: string,
   price: string,
@@ -28,11 +27,12 @@ const VariantCard = ({
   checkoutText: string,
   checkoutUrl: string,
   anonymous: boolean,
-  style?: CSSProperties,
+  width?: string,
+  marginTop?: string,
 }) => {
   const { t } = useTranslation()
   return (
-    <Card variant='outlined' style={style}>
+    <Card variant='outlined' style={{ width, marginTop }}>
       <CardContent>
         <Typography
           variant='body1'

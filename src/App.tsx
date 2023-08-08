@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Link from '@mui/material/Link'
-import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import VariantCard from './VariantCard'
 
 import { GoogleLogin } from '@react-oauth/google'
 import { useGoogleOAuth } from './api'
@@ -15,15 +12,12 @@ import { useGoogleOAuth } from './api'
 import { Trans, useTranslation } from 'react-i18next'
 import './i18n'
 
-const WIDTH = '336px'
+import Order from './Order'
 
-// Copied from Lemon Squeezy Product Details.
-const ORDER_VARIANT_ID = '109551'
-const SUBSCRIPTION_VARIANT_ID = '109552'
+const WIDTH = '336px'
 
 const App = () => {
   const { t } = useTranslation()
-  const [license, setLicense] = useState('')
 
   // Persist the state with session storage so that it remains after a page refresh.
   const [credential, setCredential] = useSessionStorage('google-login-credential', '')
@@ -33,19 +27,7 @@ const App = () => {
   // But in this example we don't need to check the credential has expired,
   // because we only use the "email" field in out server side.
   const { data: user, error } = useGoogleOAuth(credential, '', false)
-  const anonymous = !user || error
-
-  // Must pass custom `user_id` for making it easy to identify the user in our server side.
-  // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
   const { id: userId = '', email = '' } = user || {}
-  const orderCheckoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/ac87c10e-093c-434a-9bdd-7287b361e98c'
-    + '?media=0&discount=0' // set checkout page style.
-    + `&checkout[custom][user_id]=${userId}` // required.
-    + `&checkout[email]=${email}` // optional; pre-filling.
-  const subscriptionCheckoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/f7ef033f-5782-4885-8487-4c27e0f3c9f4'
-    + '?media=0&discount=0' // set checkout page style.
-    + `&checkout[custom][user_id]=${userId}` // required.
-    + `&checkout[email]=${email}` // optional; pre-filling.
 
   useEffect(() => {
     // @ts-ignore
@@ -72,7 +54,7 @@ const App = () => {
           </Trans>
         </Typography>
         <Typography variant='subtitle2'>
-          {t(anonymous ? 'not_signed_in' : 'has_signed_in').toString()}
+          {t(!userId ? 'not_signed_in' : 'has_signed_in').toString()}
         </Typography>
       </Box>
       <Box sx={{ width: WIDTH, mt: 3 }}>
@@ -95,43 +77,12 @@ const App = () => {
           }}
         />
       </Box>
-      <VariantCard
-        name={`${t('variant').toString()} #${ORDER_VARIANT_ID}`}
-        price='0.99'
-        desc1={t('30_days_validity').toString()}
-        desc2={t('32_activation_tests').toString()}
-        desc3Key='invoices_and_receipts'
-        checkoutText={t('buy_license').toString()}
-        checkoutUrl={orderCheckoutUrl}
-        anonymous={anonymous}
-        style={{ width: WIDTH, marginTop: '32px' }}
+      <Order
+        userId={userId}
+        email={email}
+        width={WIDTH}
+        marginTop='32px'
       />
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: WIDTH,
-        mt: 4,
-      }}>
-        <TextField
-          variant='outlined'
-          label={t('license').toString()}
-          required
-          size='small'
-          sx={{ width: '100%' }}
-          disabled={anonymous}
-          onChange={({ target: { value = '' } = {} }) => setLicense(value.trim())}
-        />
-        <Button
-          variant='outlined'
-          sx={{ ml: 1 }}
-          disabled={anonymous || !license}
-          onClick={() => {
-            // TODO
-          }}
-        >
-          {t('activate').toString()}
-        </Button>
-      </Box>
       <Typography
         variant='body1'
         component='div'

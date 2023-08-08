@@ -1,0 +1,93 @@
+import { useState } from 'react'
+
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import VariantCard from './VariantCard'
+
+import { useTranslation } from 'react-i18next'
+import './i18n'
+
+// Copied from Lemon Squeezy Product Details.
+const ORDER_VARIANT_ID = '109551'
+
+const Order = ({
+  userId,
+  email = '',
+  width,
+  marginTop,
+}: {
+  userId: string,
+  email?: string,
+  width?: string,
+  marginTop?: string,
+}) => {
+  const { t } = useTranslation()
+  const [license, setLicense] = useState('')
+
+  // Must pass custom `user_id` for making it easy to identify the user in our server side.
+  // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
+  const checkoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/ac87c10e-093c-434a-9bdd-7287b361e98c'
+    + '?media=0&discount=0' // set checkout page style.
+    + `&checkout[custom][user_id]=${userId}` // required.
+    + `&checkout[email]=${email}` // optional; pre-filling.
+
+  return (
+    <>
+      <VariantCard
+        name={`${t('variant').toString()} #${ORDER_VARIANT_ID}`}
+        price='0.99'
+        desc1={t('30_days_validity').toString()}
+        desc2={t('32_activation_tests').toString()}
+        desc3Key='invoices_and_receipts'
+        checkoutText={t('buy_license').toString()}
+        checkoutUrl={checkoutUrl}
+        anonymous={!userId}
+        width={width}
+        marginTop={marginTop}
+      />
+      <TextField
+        variant='outlined'
+        label={t('license').toString()}
+        required
+        size='small'
+        sx={{ width, mt: 2 }}
+        disabled={!userId}
+        onChange={({ target: { value = '' } = {} }) => setLicense(value.trim())}
+      />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width,
+          mt: 2,
+        }}
+      >
+        <Button
+          variant='outlined'
+          sx={{ width: '100%' }}
+          disabled={!userId || !license}
+          onClick={() => {
+            // TODO
+          }}
+        >
+          {t('activate').toString()}
+        </Button>
+        <Button
+          variant='outlined'
+          sx={{ width: '100%', ml: 1 }}
+          disabled={!userId || !license}
+          onClick={() => {
+            // TODO
+          }}
+        >
+          {t('check').toString()}
+        </Button>
+      </Box>
+    </>
+  )
+}
+
+export default Order

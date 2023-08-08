@@ -11,6 +11,7 @@ const resources = {
       'has_signed_in': 'Sign in successful ✅',
       'thanks': 'Thanks for your support 🖤',
       'variant': 'Variant',
+      'check': 'Check',
       'usd': 'USD',
 
       '30_days_validity': '• 30 days validity 🌖',
@@ -24,7 +25,6 @@ const resources = {
       'renew_after_30_days': '• Renew after 30 days 🙌',
       'manage_subscription': '• <0>Manage subscription</0> 💳',
       'subscribe': 'Subscribe',
-      'check_status': 'Check Status',
     },
   },
   zh: {
@@ -34,6 +34,7 @@ const resources = {
       'has_signed_in': '已登录 ✅',
       'thanks': '感谢您的资瓷 🖤',
       'variant': '产品变体',
+      'check': '检查',
       'usd': '美元',
 
       '30_days_validity': '• 30 天有效期 🌖',
@@ -47,7 +48,6 @@ const resources = {
       'renew_after_30_days': '• 30 天后自动续费 🙌',
       'manage_subscription': '• <0>管理订阅</0> 💳',
       'subscribe': '我要订阅',
-      'check': '检查状态',
     },
   },
 }
