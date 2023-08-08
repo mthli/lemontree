@@ -13,11 +13,13 @@ const ORDER_VARIANT_ID = '109551'
 
 const Order = ({
   userId = '',
+  userToken = '',
   email = '',
   width,
   marginTop,
 }: {
   userId?: string,
+  userToken?: string,
   email?: string,
   width?: string,
   marginTop?: string,
@@ -44,41 +46,39 @@ const Order = ({
         checkoutUrl={checkoutUrl}
         anonymous={!userId}
       />
-      <OutlinedInput
-        placeholder={`${t('license').toString()} *`}
-        size='small'
-        sx={{ width, height: '36.5px', mt: 2 }}
-        disabled={!userId}
-        onChange={({ target: { value = '' } = {} }) => setLicense(value.trim())}
-      />
+      <Button
+        variant='outlined'
+        sx={{ width, mt: 2 }}
+        disabled={!userToken}
+        onClick={() => {
+          // TODO
+        }}
+      >
+        {t('check').toString()}
+      </Button>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
           mt: 2,
         }}
       >
+        <OutlinedInput
+          placeholder={`${t('license').toString()} *`}
+          size='small'
+          sx={{ width: '100%', height: '36.5px' }}
+          disabled={!userId}
+          onChange={({ target: { value = '' } = {} }) => setLicense(value.trim())}
+        />
         <Button
           variant='outlined'
-          sx={{ width: '100%' }}
+          sx={{ ml: 1 }}
           disabled={!userId || !license}
           onClick={() => {
             // TODO
           }}
         >
           {t('activate').toString()}
-        </Button>
-        <Button
-          variant='outlined'
-          sx={{ width: '100%', ml: 1 }}
-          disabled={!userId || !license}
-          onClick={() => {
-            // TODO
-          }}
-        >
-          {t('check').toString()}
         </Button>
       </Box>
     </Box>
