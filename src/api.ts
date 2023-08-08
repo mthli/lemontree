@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-const BASE_URL = 'https://lemon.mthli.com'
+import { SERVER_BASE_URL } from './constants'
 
 export class RequestError extends Error {
   code: number; // HTTP Status Code.
@@ -19,7 +19,7 @@ export const useGoogleOAuth = (
   verifyExp: boolean = false,
 ) => {
   return useSWR(
-    [`${BASE_URL}/api/user/oauth/google`, credential, verifyExp],
+    [`${SERVER_BASE_URL}/api/user/oauth/google`, credential, verifyExp],
     async ([url, credential]) => {
       const res = await fetch(url, {
         method: 'POST',
@@ -78,7 +78,7 @@ export const useCheckOrder = (
   variantId: string,
   testMode: boolean = false,
 ) => {
-  const apiUrl = `${BASE_URL}/api/orders/check`
+  const apiUrl = `${SERVER_BASE_URL}/api/orders/check`
   return useCheckVariant(toggle, apiUrl, userToken, storeId, productId, variantId, testMode)
 }
 
@@ -90,6 +90,6 @@ export const useCheckSubscription = (
   variantId: string,
   testMode: boolean = false,
 ) => {
-  const apiUrl = `${BASE_URL}/api/subscriptions/check`
+  const apiUrl = `${SERVER_BASE_URL}/api/subscriptions/check`
   return useCheckVariant(toggle, apiUrl, userToken, storeId, productId, variantId, testMode)
 }

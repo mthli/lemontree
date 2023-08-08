@@ -3,13 +3,12 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import OutlinedInput from '@mui/material/OutlinedInput'
-import VariantCard from './VariantCard'
 
 import { useTranslation } from 'react-i18next'
 import './i18n'
 
-// Copied from Lemon Squeezy Product Details.
-const ORDER_VARIANT_ID = '109551'
+import VariantCard from './VariantCard'
+import { ORDER_VARIANT_ID } from './constants'
 
 const Order = ({
   userId = '',

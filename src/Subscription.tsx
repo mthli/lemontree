@@ -1,12 +1,11 @@
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import VariantCard from './VariantCard'
 
 import { useTranslation } from 'react-i18next'
 import './i18n'
 
-// Copied from Lemon Squeezy Product Details.
-const SUBSCRIPTION_VARIANT_ID = '109552'
+import VariantCard from './VariantCard'
+import { SUBSCRIPTION_VARIANT_ID } from './constants'
 
 const Subscription = ({
   userId = '',
