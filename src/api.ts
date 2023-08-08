@@ -39,3 +39,57 @@ export const useGoogleOAuth = (
       errorRetryCount: 2,
     })
 }
+
+const useCheckVariant = (
+  toggle: number,
+  apiUrl: string,
+  userToken: string,
+  storeId: string,
+  productId: string,
+  variantId: string,
+  testMode: boolean = false,
+) => {
+  const params = new URLSearchParams({
+    'user_token': userToken,
+    'store_id': storeId,
+    'product_id': productId,
+    'variant_id': variantId,
+    'test_mode': testMode ? 'true' : 'false',
+  }).toString()
+
+  return useSWR(
+    [toggle, `${apiUrl}?${params}`],
+    async ([_toggle, url]) => {
+      const res = await fetch(url)
+      const body = await res.json()
+      if (!res.ok) throw new RequestError(body['code'], body['name'], body['message'])
+      return body
+    },
+    {
+      errorRetryCount: 2,
+    })
+}
+
+export const useCheckOrder = (
+  toggle: number,
+  userToken: string,
+  storeId: string,
+  productId: string,
+  variantId: string,
+  testMode: boolean = false,
+) => {
+  const apiUrl = `${BASE_URL}/api/orders/check`
+  return useCheckVariant(toggle, apiUrl, userToken, storeId, productId, variantId, testMode)
+}
+
+export const useCheckSubscription = (
+  toggle: number,
+  userToken: string,
+  storeId: string,
+  productId: string,
+  variantId: string,
+  testMode: boolean = false,
+) => {
+  const apiUrl = `${BASE_URL}/api/subscriptions/check`
+  return useCheckVariant(toggle, apiUrl, userToken, storeId, productId, variantId, testMode)
+}

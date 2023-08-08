@@ -26,7 +26,7 @@ const App = () => {
   //
   // But in this example we don't need to check the credential has expired,
   // because we only use the "email" field in out server side.
-  const { data: user = {}, error } = useGoogleOAuth(credential, '', false)
+  const { data: user = {}, /* error */ } = useGoogleOAuth(credential, '', false)
   const { id: userId = '', token: userToken = '', email = '' } = user
 
   return (
