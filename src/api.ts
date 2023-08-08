@@ -34,5 +34,8 @@ export const useGoogleOAuth = (
       const body = await res.json()
       if (!res.ok) throw new RequestError(body['code'], body['name'], body['message'])
       return body
+    },
+    {
+      errorRetryCount: 2,
     })
 }
