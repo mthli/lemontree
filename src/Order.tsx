@@ -27,7 +27,7 @@ const Order = ({
 
   // Must pass custom `user_id` for making it easy to identify the user in our server side.
   // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
-  const checkoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/ac87c10e-093c-434a-9bdd-7287b361e98c'
+  const checkoutUrl = 'https://mthli.lemonsqueezy.com/checkout/buy/40500aae-2138-4345-a3f2-86695c5debec'
     + '?media=0&discount=0' // set checkout page style.
     + `&checkout[custom][user_id]=${userId}` // required.
     + `&checkout[email]=${email}` // optional; pre-filling.
