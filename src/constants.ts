@@ -5,8 +5,8 @@ export const GOOGLE_OAUTH_CLIENT_ID = '1098077489169-lbdsrj1l2hk3f0ot3j0o33q89ia
 // Copied from Lemon Squeezy dashboard.
 export const STORE_ID = '37298'
 export const PRODUCT_ID = '100616'
-export const ORDER_VARIANT_ID = '109551'
-export const SUBSCRIPTION_VARIANT_ID = '109552'
+export const ORDER_VARIANT_ID = '109679'
+export const SUBSCRIPTION_VARIANT_ID = '109680'
 
 // Python Server base URL.
 export const SERVER_BASE_URL = 'https://lemon.mthli.com'

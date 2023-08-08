@@ -3,12 +3,13 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import OutlinedInput from '@mui/material/OutlinedInput'
+import VariantCard from './VariantCard'
 
 import { useTranslation } from 'react-i18next'
 import './i18n'
 
-import VariantCard from './VariantCard'
-import { ORDER_VARIANT_ID } from './constants'
+import { useCheckOrder } from './api'
+import { STORE_ID, PRODUCT_ID, ORDER_VARIANT_ID } from './constants'
 
 const Order = ({
   userId = '',
@@ -25,6 +26,16 @@ const Order = ({
 }) => {
   const { t } = useTranslation()
   const [license, setLicense] = useState('')
+  const [check, setCheck] = useState(0)
+
+  // TODO (Matthew Lee) ...
+  const { data, error } = useCheckOrder(
+    check,
+    userToken,
+    STORE_ID,
+    PRODUCT_ID,
+    ORDER_VARIANT_ID,
+  )
 
   // Must pass custom `user_id` for making it easy to identify the user in our server side.
   // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
@@ -49,9 +60,7 @@ const Order = ({
         variant='outlined'
         sx={{ width, mt: 2 }}
         disabled={!userToken}
-        onClick={() => {
-          // TODO
-        }}
+        onClick={() => setCheck(check + 1)}
       >
         {t('check').toString()}
       </Button>

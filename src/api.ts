@@ -41,7 +41,7 @@ export const useGoogleOAuth = (
 }
 
 const useCheckVariant = (
-  toggle: number,
+  check: number,
   apiUrl: string,
   userToken: string,
   storeId: string,
@@ -58,8 +58,8 @@ const useCheckVariant = (
   }).toString()
 
   return useSWR(
-    [toggle, `${apiUrl}?${params}`],
-    async ([_toggle, url]) => {
+    check ? [check, `${apiUrl}?${params}`] : null,
+    async ([_check, url]) => {
       const res = await fetch(url)
       const body = await res.json()
       if (!res.ok) throw new RequestError(body['code'], body['name'], body['message'])
@@ -71,7 +71,7 @@ const useCheckVariant = (
 }
 
 export const useCheckOrder = (
-  toggle: number,
+  check: number,
   userToken: string,
   storeId: string,
   productId: string,
@@ -79,11 +79,11 @@ export const useCheckOrder = (
   testMode: boolean = false,
 ) => {
   const apiUrl = `${SERVER_BASE_URL}/api/orders/check`
-  return useCheckVariant(toggle, apiUrl, userToken, storeId, productId, variantId, testMode)
+  return useCheckVariant(check, apiUrl, userToken, storeId, productId, variantId, testMode)
 }
 
 export const useCheckSubscription = (
-  toggle: number,
+  check: number,
   userToken: string,
   storeId: string,
   productId: string,
@@ -91,5 +91,5 @@ export const useCheckSubscription = (
   testMode: boolean = false,
 ) => {
   const apiUrl = `${SERVER_BASE_URL}/api/subscriptions/check`
-  return useCheckVariant(toggle, apiUrl, userToken, storeId, productId, variantId, testMode)
+  return useCheckVariant(check, apiUrl, userToken, storeId, productId, variantId, testMode)
 }

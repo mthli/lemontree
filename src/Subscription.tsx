@@ -1,11 +1,14 @@
+import { useState } from 'react'
+
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import VariantCard from './VariantCard'
 
 import { useTranslation } from 'react-i18next'
 import './i18n'
 
-import VariantCard from './VariantCard'
-import { SUBSCRIPTION_VARIANT_ID } from './constants'
+import { useCheckSubscription } from './api'
+import { STORE_ID, PRODUCT_ID, SUBSCRIPTION_VARIANT_ID } from './constants'
 
 const Subscription = ({
   userId = '',
@@ -21,6 +24,16 @@ const Subscription = ({
   marginTop?: string,
 }) => {
   const { t } = useTranslation()
+  const [check, setCheck] = useState(0)
+
+  // TODO (Matthew Lee) ...
+  const { data, error } = useCheckSubscription(
+    check,
+    userToken,
+    STORE_ID,
+    PRODUCT_ID,
+    SUBSCRIPTION_VARIANT_ID,
+  )
 
   // Must pass custom `user_id` for making it easy to identify the user in our server side.
   // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
@@ -45,9 +58,7 @@ const Subscription = ({
         variant='outlined'
         sx={{ width, mt: 2 }}
         disabled={!userToken}
-        onClick={() => {
-          // TODO
-        }}
+        onClick={() => setCheck(check + 1)}
       >
         {t('check').toString()}
       </Button>
