@@ -11,8 +11,11 @@ const resources = {
       'has_signed_in': 'Sign in successful ✅',
       'thanks': 'Thanks for your support 🖤',
       'variant': 'Variant',
-      'check': 'Check',
       'usd': 'USD',
+
+      'check': 'Check',
+      'available': 'Available',
+      'unavailable': 'Unavailable',
 
       '30_days_validity': '• 30 days validity 🌖',
       '32_activation_tests': '• 32 activation tests 🚀',
@@ -34,8 +37,11 @@ const resources = {
       'has_signed_in': '已登录 ✅',
       'thanks': '感谢您的资瓷 🖤',
       'variant': '产品变体',
-      'check': '校验',
       'usd': '美元',
+
+      'check': '校验',
+      'available': '可以使用',
+      'unavailable': '不可使用',
 
       '30_days_validity': '• 30 天有效期 🌖',
       '32_activation_tests': '• 32 次激活测试 🚀',
