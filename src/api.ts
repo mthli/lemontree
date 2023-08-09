@@ -36,7 +36,8 @@ export const useGoogleOAuth = (
       return body
     },
     {
-      errorRetryCount: 2,
+      errorRetryCount: 0,
+      revalidateOnFocus: false,
     })
 }
 
@@ -66,7 +67,8 @@ const useCheckVariant = (
       return body
     },
     {
-      errorRetryCount: 2,
+      errorRetryCount: 0,
+      revalidateOnFocus: false,
     })
 }
 
@@ -97,19 +99,17 @@ export const useCheckSubscription = (
 export const useActivateLicense = (
   activate: number,
   licenseKey: string,
-  instanceName: string = '',
-  testMode: boolean = false,
+  instanceName: string,
 ) => {
   return useSWR(
-    activate ? [activate, `${SERVER_BASE_URL}/api/licenses/activate`, licenseKey, instanceName, testMode] : null,
-    async ([_activate, url, licenseKey, instanceName, testMode]) => {
+    activate ? [activate, `${SERVER_BASE_URL}/api/licenses/activate`, licenseKey, instanceName] : null,
+    async ([_activate, url, licenseKey, instanceName]) => {
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           'license_key': licenseKey,
           'instance_name': instanceName,
-          'test_mode': testMode,
         })
       })
 
@@ -118,6 +118,7 @@ export const useActivateLicense = (
       return body
     },
     {
-      errorRetryCount: 2,
+      errorRetryCount: 0,
+      revalidateOnFocus: false,
     })
 }

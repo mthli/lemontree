@@ -33,7 +33,11 @@ const Order = ({
   const [licenseKey, setLicenseKey] = useState('')
   const [alertOpen, setAlertOpen] = useState(false)
 
-  const { data, error, isLoading } = useCheckOrder(
+  const {
+    data: orderData,
+    error: orderError,
+    isLoading: isLoadingOrder,
+  } = useCheckOrder(
     check,
     userToken,
     STORE_ID,
@@ -41,9 +45,20 @@ const Order = ({
     ORDER_VARIANT_ID,
   )
 
-  const { available = false } = data || {}
-  const alertSeverity: AlertColor = error ? 'error' : (available ? 'success' : 'warning')
-  const alertMessage = t(available ? 'available' : 'unavailable').toString()
+  // TODO (Matthew Lee) show license alert.
+  const {
+    data: licenseData,
+    error: licenseError,
+    isLoading: isLoadingLicense,
+  } = useActivateLicense(
+    activate,
+    licenseKey,
+    `instance_name_${activate}`, // just for example.
+  )
+
+  const { available: orderAvailable = false } = orderData || {}
+  const alertSeverity: AlertColor = orderError ? 'error' : (orderAvailable ? 'success' : 'warning')
+  const alertMessage = t(orderAvailable ? 'available' : 'unavailable').toString()
 
   // Must pass custom `user_id` for making it easy to identify the user in our server side.
   // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
@@ -70,7 +85,7 @@ const Order = ({
           sx={{ width, mt: 2 }}
           disabled={!userToken}
           onClick={() => {
-            if (isLoading) return
+            if (isLoadingOrder || isLoadingLicense) return
             setCheck(check + 1)
             setAlertOpen(true)
           }}
@@ -96,7 +111,7 @@ const Order = ({
             sx={{ ml: 1 }}
             disabled={!licenseKey}
             onClick={() => {
-              if (isLoading) return
+              if (isLoadingOrder || isLoadingLicense) return
               setActivate(activate + 1)
               setAlertOpen(true)
             }}
@@ -106,7 +121,7 @@ const Order = ({
         </Box>
       </Box>
       {
-        data && !isLoading &&
+        orderData && !isLoadingOrder && !isLoadingLicense &&
         <AlertBar
           severity={alertSeverity}
           message={alertMessage}
