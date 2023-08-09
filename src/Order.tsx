@@ -11,7 +11,7 @@ import VariantCard from './VariantCard'
 import { useTranslation } from 'react-i18next'
 import './i18n'
 
-import { useCheckOrder } from './api'
+import { useCheckOrder, useActivateLicense } from './api'
 import { STORE_ID, PRODUCT_ID, ORDER_VARIANT_ID } from './constants'
 
 const Order = ({
@@ -28,8 +28,9 @@ const Order = ({
   marginTop?: string,
 }) => {
   const { t } = useTranslation()
-  const [license, setLicense] = useState('')
   const [check, setCheck] = useState(0)
+  const [activate, setActivate] = useState(0)
+  const [licenseKey, setLicenseKey] = useState('')
   const [alertOpen, setAlertOpen] = useState(false)
 
   const { data, error, isLoading } = useCheckOrder(
@@ -87,15 +88,17 @@ const Order = ({
             placeholder={`${t('license').toString()} *`}
             size='small'
             sx={{ width: '100%', height: '36.5px' }}
-            disabled={!userId}
-            onChange={({ target: { value = '' } = {} }) => setLicense(value.trim())}
+            value={licenseKey}
+            onChange={({ target: { value = '' } = {} }) => setLicenseKey(value.trim())}
           />
           <Button
             variant='outlined'
             sx={{ ml: 1 }}
-            disabled={!userId || !license}
+            disabled={!licenseKey}
             onClick={() => {
-              // TODO
+              if (isLoading) return
+              setActivate(activate + 1)
+              setAlertOpen(true)
             }}
           >
             {t('activate').toString()}

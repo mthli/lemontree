@@ -93,3 +93,31 @@ export const useCheckSubscription = (
   const apiUrl = `${SERVER_BASE_URL}/api/subscriptions/check`
   return useCheckVariant(check, apiUrl, userToken, storeId, productId, variantId, testMode)
 }
+
+export const useActivateLicense = (
+  activate: number,
+  licenseKey: string,
+  instanceName: string = '',
+  testMode: boolean = false,
+) => {
+  return useSWR(
+    activate ? [activate, `${SERVER_BASE_URL}/api/licenses/activate`, licenseKey, instanceName, testMode] : null,
+    async ([_activate, url, licenseKey, instanceName, testMode]) => {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'license_key': licenseKey,
+          'instance_name': instanceName,
+          'test_mode': testMode,
+        })
+      })
+
+      const body = await res.json()
+      if (!res.ok) throw new RequestError(body['code'], body['name'], body['message'])
+      return body
+    },
+    {
+      errorRetryCount: 2,
+    })
+}
