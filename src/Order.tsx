@@ -45,7 +45,6 @@ const Order = ({
     ORDER_VARIANT_ID,
   )
 
-  // TODO (Matthew Lee) show license alert.
   const {
     data: licenseData,
     error: licenseError,
@@ -56,9 +55,11 @@ const Order = ({
     `instance_name_${activate}`, // just for example.
   )
 
+  // Simply show alert in this example.
   const { available: orderAvailable = false } = orderData || {}
-  const alertSeverity: AlertColor = orderError ? 'error' : (orderAvailable ? 'success' : 'warning')
-  const alertMessage = t(orderAvailable ? 'available' : 'unavailable').toString()
+  const { available: licenseAvailable = false } = licenseData || {}
+  const alertSeverity: AlertColor = orderError || licenseError ? 'error' : (orderAvailable || licenseAvailable ? 'success' : 'warning')
+  const alertMessage = t(orderAvailable || licenseAvailable ? 'available' : 'unavailable').toString()
 
   // Must pass custom `user_id` for making it easy to identify the user in our server side.
   // https://docs.lemonsqueezy.com/help/checkout/passing-custom-data#passing-custom-data-in-checkout-links
@@ -121,7 +122,7 @@ const Order = ({
         </Box>
       </Box>
       {
-        orderData && !isLoadingOrder && !isLoadingLicense &&
+        (orderData || licenseData) && !isLoadingOrder && !isLoadingLicense &&
         <AlertBar
           severity={alertSeverity}
           message={alertMessage}
