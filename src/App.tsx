@@ -48,8 +48,14 @@ const App = () => {
             <Link href='https://github.com/mthli/lemonsqueepy' target='_blank'>link</Link>
           </Trans>
         </Typography>
-        <Typography variant='subtitle2'>
+        <Typography variant='subtitle2' gutterBottom>
           {t(!userId ? 'not_signed_in' : 'has_signed_in').toString()}
+        </Typography>
+        <Typography variant='subtitle2'>
+          <Link href='/privacy-policy' target='_blank'>
+            {t('privacy_policy').toString()}
+          </Link>
+          &#160;🔗
         </Typography>
       </Box>
       <Box sx={{ width: WIDTH, mt: 3 }}>

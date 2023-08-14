@@ -28,6 +28,11 @@ const resources = {
       'renew_after_30_days': '• Renew after 30 days 🙌',
       'manage_subscription': '• <0>Manage subscription</0> 💳',
       'subscribe': 'Subscribe',
+
+      'privacy_policy': 'Privacy Policy',
+      'privacy_policy_desc1': 'This App use these non-sensitive scopes of your Google Account:',
+      'privacy_policy_desc2': '• /auth/userinfo.email - See your primary Google Account email address.',
+      'privacy_policy_desc3': "• /auth/userinfo.profile - See your personal info, including any personal info you've made publicly available.",
     },
   },
   zh: {
@@ -54,6 +59,11 @@ const resources = {
       'renew_after_30_days': '• 30 天后自动续费 🙌',
       'manage_subscription': '• <0>管理订阅</0> 💳',
       'subscribe': '我要订阅',
+
+      'privacy_policy': '隐私政策',
+      'privacy_policy_desc1': '此 App 将获取您 Google 帐户中的这些非敏感数据：',
+      'privacy_policy_desc2': '• /auth/userinfo.email - 获取您的主电子邮件地址。',
+      'privacy_policy_desc3': '• /auth/userinfo.profile - 获取您公开的个人信息。',
     },
   },
 }

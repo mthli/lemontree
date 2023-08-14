@@ -6,12 +6,17 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GOOGLE_OAUTH_CLIENT_ID } from './constants'
 
 import App from './App'
+import PrivacyPolicy from './PrivacyPolicy'
 import './index.css'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+  },
+  {
+    path: '/privacy-policy',
+    element: <PrivacyPolicy />
   },
 ])
 
