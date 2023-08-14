@@ -11,7 +11,10 @@ The test scenarios are:
 
 ## Privacy Policy
 
-This App don’t required any permissions of your Google Account.
+This App use these non-sensitive scopes of your Google Account:
+
+- `/auth/userinfo.email` See your primary Google Account email address.
+- `/auth/userinfo.profile` See your personal info, including any personal info you've made publicly available.
 
 ## License
 
